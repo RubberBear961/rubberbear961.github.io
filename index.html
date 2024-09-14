@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OhioSerwer</title>
+    
+    <!-- Import pliku style.css -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header>
+        <h1>Witamy na OhioSerwer</h1>
+        <p>Strona Serwerowa!</p>
+    </header>
+
+    <main>
+        <!-- Początkowe przyciski: Użytkownik i Administrator -->
+        <div class="button-container" id="initial-buttons">
+            <a href="https://freemcserver.net/server/1398971" class="btn">Użytkownik</a>
+            <a href="#" class="admin" onclick="showAdminForm()">Administrator</a>
+        </div>
+
+        <!-- Formularz administratora, początkowo ukryty -->
+        <div id="admin-form" class="form-container" style="display: none;">
+            <h2>Logowanie Administratora</h2>
+            <form id="login-form" onsubmit="return validateForm()">
+                <label for="username">Nazwa użytkownika:</label>
+                <input type="text" id="username" name="username" placeholder="użytkownik" required><br>
+
+                <label for="password">Hasło:</label>
+                <input type="password" id="password" name="password" placeholder="hasło" required><br>
+
+                <button type="submit">Zaloguj się</button>
+            </form>
+
+            <!-- Miejsce na komunikat błędu -->
+            <p id="error-message" style="color: red; display: none;">Niepoprawna nazwa użytkownika lub hasło</p>
+        </div>
+
+        <!-- Nowe przyciski, początkowo ukryte -->
+        <div class="button-container" id="new-buttons" style="display: none;">
+            <a href="https://demo.filestash.app/login?type=ftp&hostname=goose.de.freemcserver.net&username=OhioSerwer.1398971&password=w9dOgOVieK-Hs2jIJE1uus_PfF0OIorS&port=" class="btn">Pliki Serwerowe</a>
+            <a href="#" class="btn">Komendy</a>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 OhioSerwer. Wszelkie prawa zastrzeżone.</p>
+    </footer>
+
+    <!-- Skrypt do walidacji formularza i zmiany przycisków -->
+    <script>
+        function showAdminForm() {
+            document.getElementById('admin-form').style.display = 'block';
+        }
+
+        function validateForm() {
+            // Pobranie wartości wprowadzonych przez użytkownika
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+
+            // Sprawdzenie, czy nazwa użytkownika i hasło są poprawne
+            if (username === 'admin' && password === 'toaleta') {
+                // Ukrycie początkowych przycisków i formularza
+                document.getElementById('initial-buttons').style.display = 'none';
+                document.getElementById('admin-form').style.display = 'none';
+
+                // Wyświetlenie nowych przycisków
+                document.getElementById('new-buttons').style.display = 'flex';
+                return false; // Zatrzymanie domyślnego działania formularza
+            } else {
+                // Wyświetlenie komunikatu o błędzie
+                document.getElementById('error-message').style.display = 'block';
+                return false; // Zatrzymanie domyślnego działania formularza
+            }
+        }
+    </script>
+
+</body>
+</html>
