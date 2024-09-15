@@ -108,15 +108,39 @@ header p {
     background-color: #357cb0;
 }
 
+/* Styl dla sekcji z główkami graczy */
+.player-heads {
+    margin: 20px 0;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+}
+
+.player-heads h2 {
+    margin-bottom: 10px;
+}
+
+#heads-container {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+}
+
+.player-head {
+    border-radius: 50%;
+    border: 2px solid #49aaff;
+    transition: transform 0.3s ease;
+}
+
+.player-head:hover {
+    transform: scale(1.2);
+}
+
 /* Stopka */
 footer {
     background-color: #333;
     color: white;
     padding: 15px;
     margin-top: 40px;
-    text-align: center;
-}
-
-footer p {
-    margin: 0;
-}
+    text-align:
