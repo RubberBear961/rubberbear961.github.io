@@ -1,0 +1,231 @@
+/* Resetowanie marginesów i wypełnień */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Styl dla ciała strony */
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f4f4f4;
+    line-height: 1.6;
+    padding: 20px;
+    text-align: center;
+    transition: background-color 1s ease;
+}
+
+/* Nagłówek */
+header {
+    background-color: #49aaff;
+    color: white;
+    padding: 20px;
+    margin-bottom: 30px;
+    transition: background-color 1s ease;
+}
+
+header h1 {
+    font-size: 2.5em;
+    margin-bottom: 10px;
+}
+
+header p {
+    font-size: 1.2em;
+    margin: 0;
+}
+
+/* Kontener przycisków */
+.button-container {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin: 40px 0;
+}
+
+/* Styl dla przycisków */
+.btn, .admin {
+    background-color: #49aaff;
+    color: white;
+    font-size: 24px;
+    padding: 15px 30px;
+    text-decoration: none;
+    transition: background-color 1s ease, color 1s ease;
+    border: 2px solid #49aaff;
+    text-transform: uppercase;
+    border-radius: 5px;
+}
+
+.btn:hover, .admin:hover {
+    background-color: white;
+    color: #49aaff;
+    border: 2px solid #49aaff;
+}
+
+/* Styl dla formularza admina */
+.form-container {
+    margin-top: 20px;
+    background-color: white;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    width: 300px;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: left;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.5s ease, visibility 0.5s ease;
+}
+
+.form-container.show {
+    opacity: 1;
+    visibility: visible;
+}
+
+.form-container h2 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.form-container label {
+    display: block;
+    margin-bottom: 10px;
+    font-size: 1.1em;
+}
+
+.form-container input[type="text"],
+.form-container input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.form-container button {
+    width: 100%;
+    padding: 10px;
+    background-color: #49aaff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 1.1em;
+    cursor: pointer;
+    transition: background-color 0.4s;
+}
+
+.form-container button:hover {
+    background-color: #357cb0;
+}
+
+/* Styl dla sekcji z główkami graczy */
+.player-heads {
+    margin: 20px 0;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+}
+
+.player-heads h2 {
+    margin-bottom: 10px;
+}
+
+#heads-container,
+#past-players-container {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+}
+
+.player-head {
+    border-radius: 50%;
+    border: 2px solid #49aaff;
+    transition: transform 0.3s ease;
+    cursor: pointer;
+}
+
+.player-head:hover {
+    transform: scale(1.2);
+}
+
+/* Stopka */
+footer {
+    background-color: #333;
+    color: white;
+    padding: 15px;
+    margin-top: 40px;
+    text-align: center;
+    transition: background-color 1s ease;
+}
+
+/* Styl dla zmiany koloru na biały z czerwonymi akcentami */
+.red-background {
+    background-color: #fff; /* Tło białe */
+    color: #f00; /* Kolor tekstu czerwony */
+    transition: background-color 3s ease, color 3s ease;
+}
+
+.red-color {
+    background-color: #f00; /* Tło czerwone */
+    color: #fff; /* Kolor tekstu biały */
+    border-color: #f00; /* Kolor obramowania czerwony */
+    transition: background-color 3s ease, color 3s ease;
+}
+
+/* Styl dla kontenera szczegółów gracza */
+.player-details {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.player-details-content {
+    background-color: white;
+    border-radius: 10px;
+    padding: 20px;
+    text-align: center;
+    position: relative;
+    width: 300px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.player-avatar {
+    border-radius: 50%;
+    margin-bottom: 10px;
+}
+
+#close-details {
+    background-color: #49aaff;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+#close-details:hover {
+    background-color: #357cb0;
+}
+/* Styl dla statusu premium */
+.premium-yes {
+    color: green;
+}
+
+.premium-no {
+    color: red;
+}
+
+
