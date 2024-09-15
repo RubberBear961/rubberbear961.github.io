@@ -4,8 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>OhioSerwer</title>
-
-    <!-- Import pliku style.css -->
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -23,7 +21,7 @@
         </div>
 
         <!-- Formularz administratora, początkowo ukryty -->
-        <div id="admin-form" class="form-container" style="display: none;">
+        <div id="admin-form" class="form-container">
             <h2>Logowanie Administratora</h2>
             <form id="login-form" onsubmit="return validateForm()">
                 <label for="username">Nazwa użytkownika:</label>
@@ -34,8 +32,6 @@
 
                 <button type="submit">Zaloguj się</button>
             </form>
-
-            <!-- Miejsce na komunikat błędu -->
             <p id="error-message" style="color: red; display: none;">Niepoprawna nazwa użytkownika lub hasło</p>
         </div>
 
@@ -56,38 +52,30 @@
         <p>&copy; 2024 OhioSerwer. Wszelkie prawa zastrzeżone.</p>
     </footer>
 
-    <!-- Skrypt do walidacji formularza i zmiany przycisków -->
     <script>
         function showAdminForm() {
-            document.getElementById('admin-form').style.display = 'block';
+            const adminForm = document.getElementById('admin-form');
+            adminForm.classList.add('show');
         }
 
         function validateForm() {
-            // Pobranie wartości wprowadzonych przez użytkownika
             const username = document.getElementById('username').value;
             const password = document.getElementById('password').value;
 
-            // Sprawdzenie, czy nazwa użytkownika i hasło są poprawne
             if (username === 'admin' && password === 'toaleta') {
-                // Ukrycie początkowych przycisków i formularza
                 document.getElementById('initial-buttons').style.display = 'none';
-                document.getElementById('admin-form').style.display = 'none';
-
-                // Wyświetlenie nowych przycisków
+                document.getElementById('admin-form').classList.remove('show');
                 document.getElementById('new-buttons').style.display = 'flex';
-                return false; // Zatrzymanie domyślnego działania formularza
+                return false;
             } else {
-                // Wyświetlenie komunikatu o błędzie
                 document.getElementById('error-message').style.display = 'block';
-                return false; // Zatrzymanie domyślnego działania formularza
+                return false;
             }
         }
 
-        // Pobieranie danych o graczach z serwera Minecraft
-        const serverAddress = 'ohioserwer.enderman.cloud'; // Adres serwera Minecraft
+        const serverAddress = 'ohioserwer.enderman.cloud';
         const apiURL = `https://api.mcsrvstat.us/2/${serverAddress}`;
 
-        // Funkcja do pobierania danych o graczach
         async function fetchPlayerHeads() {
             try {
                 const response = await fetch(apiURL);
@@ -115,8 +103,7 @@
             }
         }
 
-        // Wywołanie funkcji po załadowaniu strony
-        fetchPlayerHeads();
+        window.onload = fetchPlayerHeads;
     </script>
 
 </body>
