@@ -14,13 +14,11 @@
     </header>
 
     <main>
-        <!-- Początkowe przyciski: Użytkownik i Administrator -->
         <div class="button-container" id="initial-buttons">
             <a href="https://freemcserver.net/server/1398971" class="btn">Użytkownik</a>
             <a href="#" class="admin" onclick="showAdminForm()">Administrator</a>
         </div>
 
-        <!-- Formularz administratora, początkowo ukryty -->
         <div id="admin-form" class="form-container">
             <h2>Logowanie Administratora</h2>
             <form id="login-form" onsubmit="return validateForm()">
@@ -35,17 +33,30 @@
             <p id="error-message" style="color: red; display: none;">Niepoprawna nazwa użytkownika lub hasło</p>
         </div>
 
-        <!-- Nowe przyciski, początkowo ukryte -->
         <div class="button-container" id="new-buttons" style="display: none;">
             <a href="https://demo.filestash.app/login?type=ftp&hostname=pelican.fi.freemcserver.net&username=OhioSerwer.1398971&password=w9dOgOVieK-Hs2jIJE1uus_PfF0OIorS&port=" class="btn">Pliki Serwerowe</a>
             <a href="#" class="btn">Komendy</a>
         </div>
 
-        <!-- Sekcja z główkami graczy -->
         <section id="player-heads" class="player-heads">
             <h2>Aktywni gracze</h2>
             <div id="heads-container"></div>
         </section>
+
+        <section id="past-players" class="player-heads">
+            <h2>Gracze, którzy choć raz weszli na serwer</h2>
+            <div id="past-players-container"></div>
+        </section>
+
+        <!-- Kontener dla szczegółów gracza -->
+        <div id="player-details" class="player-details">
+            <div class="player-details-content">
+                <img id="player-avatar" src="" alt="Główka gracza" class="player-avatar">
+                <p id="player-name"></p>
+                <p id="player-premium"></p>
+                <button id="close-details" onclick="closePlayerDetails()">Cofnij</button>
+            </div>
+        </div>
     </main>
 
     <footer>
@@ -82,11 +93,14 @@
         const serverAddress = 'ohioserwer.enderman.cloud';
         const apiURL = `https://api.mcsrvstat.us/2/${serverAddress}`;
 
+        const pastPlayers = ['Matrix_2011', 'Supernacikowy', 'monster_alex', 'skibidi_sygnal', 'HYDRANT33', 'Mik0wski', 'OHIO_rizzzzz'];
+
         async function fetchPlayerHeads() {
             try {
                 const response = await fetch(apiURL);
                 const data = await response.json();
 
+                // Obsługuje aktywnych graczy
                 if (data.online && data.players && data.players.list) {
                     const players = data.players.list;
                     const headsContainer = document.getElementById('heads-container');
@@ -98,15 +112,61 @@
                         img.alt = player;
                         img.title = player;
                         img.classList.add('player-head');
+                        img.onclick = () => showPlayerDetails(player);
                         headsContainer.appendChild(img);
                     });
                 } else {
                     document.getElementById('heads-container').innerHTML = '<p>Brak aktywnych graczy</p>';
                 }
+
+                // Obsługuje graczy, którzy choć raz weszli na serwer
+                const pastPlayersContainer = document.getElementById('past-players-container');
+                pastPlayersContainer.innerHTML = '';
+
+                pastPlayers.forEach(player => {
+                    const img = document.createElement('img');
+                    img.src = `https://mc-heads.net/avatar/${player}/50`;
+                    img.alt = player;
+                    img.title = player;
+                    img.classList.add('player-head');
+                    img.onclick = () => showPlayerDetails(player);
+                    pastPlayersContainer.appendChild(img);
+                });
+		
+
             } catch (error) {
                 console.error('Błąd podczas pobierania danych o graczach:', error);
                 document.getElementById('heads-container').innerHTML = '<p>Błąd podczas ładowania danych o graczach</p>';
             }
+        }
+
+	// Przykładowa lista graczy premium
+	const premiumPlayers = ['Matrix_2011', 'Supernacikowy'];
+
+	// Funkcja wyświetlająca szczegóły gracza
+	function showPlayerDetails(player) {
+ 	    document.getElementById('player-avatar').src = `https://mc-heads.net/avatar/${player}/100`;
+	    document.getElementById('player-name').textContent = player;
+
+	    // Sprawdzanie, czy gracz jest premium
+	    const isPremium = premiumPlayers.includes(player);
+	    const premiumText = isPremium ? 'Tak' : 'Nie';
+    
+	    // Ustawienie klasy CSS na podstawie statusu premium
+	    document.getElementById('player-premium').textContent = `Premium: ${premiumText}`;
+	    document.getElementById('player-premium').className = isPremium ? 'premium-yes' : 'premium-no';
+    
+	    document.getElementById('player-details').style.display = 'flex';
+	}
+
+	// Funkcja do ukrywania szczegółów gracza
+	function hidePlayerDetails() {
+	    document.getElementById('player-details').style.display = 'none';
+	}
+
+
+        function closePlayerDetails() {
+            document.getElementById('player-details').style.display = 'none';
         }
 
         window.onload = fetchPlayerHeads;
