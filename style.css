@@ -108,33 +108,39 @@ header p {
     background-color: #357cb0;
 }
 
-/* Styl dla sekcji z główkami graczy */
-.player-heads {
-    margin: 20px 0;
-    padding: 20px;
-    background-color: #fff;
-    border-radius: 5px;
-    border: 1px solid #ddd;
-}
-
-.player-heads h2 {
-    margin-bottom: 10px;
-}
-
-#heads-container {
+/* Sekcja serwera Minecraft */
+.server-list-item {
     display: flex;
-    justify-content: center;
-    gap: 15px;
+    align-items: center;
+    background-color: #f2f2f2;
+    border: 1px solid #ccc;
+    padding: 15px;
+    margin-top: 20px;
+    border-radius: 8px;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
-.player-head {
-    border-radius: 50%;
-    border: 2px solid #49aaff;
-    transition: transform 0.3s ease;
+.server-icon {
+    width: 64px;
+    height: 64px;
+    margin-right: 20px;
 }
 
-.player-head:hover {
-    transform: scale(1.2);
+.server-details {
+    text-align: left;
+}
+
+.server-details h3 {
+    font-size: 1.5em;
+    margin: 0;
+    color: #333;
+}
+
+.server-details p {
+    margin: 5px 0 0;
+    color: #666;
 }
 
 /* Stopka */
@@ -143,4 +149,9 @@ footer {
     color: white;
     padding: 15px;
     margin-top: 40px;
-    text-align:
+    text-align: center;
+}
+
+footer p {
+    margin: 0;
+}
