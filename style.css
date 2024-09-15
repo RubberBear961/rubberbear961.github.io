@@ -135,7 +135,8 @@ header p {
     margin-bottom: 10px;
 }
 
-#heads-container {
+#heads-container,
+#past-players-container {
     display: flex;
     justify-content: center;
     gap: 15px;
@@ -145,6 +146,7 @@ header p {
     border-radius: 50%;
     border: 2px solid #49aaff;
     transition: transform 0.3s ease;
+    cursor: pointer;
 }
 
 .player-head:hover {
@@ -161,14 +163,69 @@ footer {
     transition: background-color 1s ease;
 }
 
-/* Styl dla zmiany koloru na czerwony */
+/* Styl dla zmiany koloru na biały z czerwonymi akcentami */
 .red-background {
-    background-color: #f00 !important;
-    color: #fff !important;
+    background-color: #fff; /* Tło białe */
+    color: #f00; /* Kolor tekstu czerwony */
+    transition: background-color 3s ease, color 3s ease;
 }
 
 .red-color {
-    background-color: #f00;
-    color: #fff;
-    border-color: #f00;
+    background-color: #f00; /* Tło czerwone */
+    color: #fff; /* Kolor tekstu biały */
+    border-color: #f00; /* Kolor obramowania czerwony */
+    transition: background-color 3s ease, color 3s ease;
 }
+
+/* Styl dla kontenera szczegółów gracza */
+.player-details {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.player-details-content {
+    background-color: white;
+    border-radius: 10px;
+    padding: 20px;
+    text-align: center;
+    position: relative;
+    width: 300px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.player-avatar {
+    border-radius: 50%;
+    margin-bottom: 10px;
+}
+
+#close-details {
+    background-color: #49aaff;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+#close-details:hover {
+    background-color: #357cb0;
+}
+/* Styl dla statusu premium */
+.premium-yes {
+    color: green;
+}
+
+.premium-no {
+    color: red;
+}
+
+
