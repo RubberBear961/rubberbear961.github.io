@@ -66,6 +66,12 @@
                 document.getElementById('initial-buttons').style.display = 'none';
                 document.getElementById('admin-form').classList.remove('show');
                 document.getElementById('new-buttons').style.display = 'flex';
+                
+                // Zmiana koloru elementów
+                document.body.classList.add('red-background');
+                document.querySelector('header').classList.add('red-background');
+                document.querySelector('footer').classList.add('red-background');
+                document.querySelectorAll('.btn, .admin').forEach(el => el.classList.add('red-color'));
                 return false;
             } else {
                 document.getElementById('error-message').style.display = 'block';
