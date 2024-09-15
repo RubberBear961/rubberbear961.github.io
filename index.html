@@ -16,6 +16,28 @@
     </header>
 
     <main>
+        <!-- Początkowe przyciski: Użytkownik i Administrator -->
+        <div class="button-container" id="initial-buttons">
+            <a href="https://freemcserver.net/server/1398971" class="btn">Użytkownik</a>
+            <a href="#" class="admin" onclick="showAdminForm()">Administrator</a>
+        </div>
+
+        <!-- Formularz administratora, początkowo ukryty -->
+        <div id="admin-form" class="form-container">
+            <h2>Logowanie Administratora</h2>
+            <form id="login-form" onsubmit="return validateForm()">
+                <label for="username">Nazwa użytkownika:</label>
+                <input type="text" id="username" name="username" placeholder="użytkownik" required><br>
+
+                <label for="password">Hasło:</label>
+                <input type="password" id="password" name="password" placeholder="hasło" required><br>
+
+                <button type="submit">Zaloguj się</button>
+            </form>
+            <!-- Miejsce na komunikat błędu -->
+            <p id="error-message" style="color: red; display: none;">Niepoprawna nazwa użytkownika lub hasło</p>
+        </div>
+
         <!-- Sekcja z główkami graczy -->
         <div id="players-heads">
             <h2>Aktywni Gracze</h2>
@@ -26,11 +48,11 @@
 
         <!-- Sekcja serwera Minecraft (widok jak z listy serwerów) -->
         <div id="server-info" class="server-list-item">
-            <img src="" alt="Ikona serwera" class="server-icon" id="server-icon">
+            <img src="default-icon.png" alt="Ikona serwera" class="server-icon">
             <div class="server-details">
-                <h3 id="server-name">Ładowanie nazwy serwera...</h3>
-                <p id="server-description">Ładowanie opisu serwera...</p>
-                <p id="server-players">Ładowanie liczby graczy...</p>
+                <h3>ohioserwer.enderman.cloud</h3>
+                <p>Oficjalny serwer OhioSerwer.</p>
+                <p>Gracze online: N/A</p>
             </div>
         </div>
     </main>
@@ -39,39 +61,66 @@
         <p>&copy; 2024 OhioSerwer. Wszelkie prawa zastrzeżone.</p>
     </footer>
 
-    <!-- Skrypt do pobierania danych o serwerze Minecraft -->
+    <!-- Skrypt do walidacji formularza i zmiany przycisków -->
     <script>
-        const serverIp = 'ohioserwer.enderman.cloud'; // Adres Twojego serwera
+        function showAdminForm() {
+            const adminForm = document.getElementById('admin-form');
+            adminForm.classList.toggle('show');
+        }
 
-        async function fetchServerInfo() {
-            try {
-                const response = await fetch(`https://api.mcsrvstat.us/2/${serverIp}`);
-                const data = await response.json();
+        function validateForm() {
+            // Pobranie wartości wprowadzonych przez użytkownika
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
 
-                if (data.online) {
-                    // Ustaw ikonę serwera (jeśli jest dostępna)
-                    document.getElementById('server-icon').src = data.icon ? `data:image/png;base64,${data.icon}` : 'default-icon.png';
+            // Sprawdzenie, czy nazwa użytkownika i hasło są poprawne
+            if (username === 'admin' && password === 'toaleta') {
+                // Ukrycie początkowych przycisków i formularza
+                document.getElementById('initial-buttons').style.display = 'none';
+                document.getElementById('admin-form').style.display = 'none';
 
-                    // Ustaw nazwę serwera
-                    document.getElementById('server-name').innerText = data.hostname || serverIp;
-
-                    // Ustaw opis serwera
-                    document.getElementById('server-description').innerText = data.motd.clean.join(' ') || 'Brak opisu serwera';
-
-                    // Ustaw liczbę graczy online
-                    const playerCount = data.players ? `${data.players.online} / ${data.players.max}` : 'Brak danych o graczach';
-                    document.getElementById('server-players').innerText = `Gracze online: ${playerCount}`;
-                } else {
-                    document.getElementById('server-description').innerText = 'Serwer jest offline';
-                }
-            } catch (error) {
-                console.error('Błąd podczas pobierania danych o serwerze:', error);
-                document.getElementById('server-description').innerText = 'Błąd podczas ładowania danych o serwerze';
+                // Wyświetlenie nowych przycisków
+                document.getElementById('new-buttons').style.display = 'flex';
+                return false; // Zatrzymanie domyślnego działania formularza
+            } else {
+                // Wyświetlenie komunikatu o błędzie
+                document.getElementById('error-message').style.display = 'block';
+                return false; // Zatrzymanie domyślnego działania formularza
             }
         }
 
-        // Wywołanie funkcji po załadowaniu strony
-        fetchServerInfo();
+        // Przykładowy URL API serwera
+        const serverAPI = 'https://mcapi.us/server/status?ip=ohioserwer.enderman.cloud';
+
+        // Funkcja pobierająca dane o graczach i aktualizująca widok
+        async function updatePlayerHeads() {
+            try {
+                const response = await fetch(serverAPI);
+                const data = await response.json();
+
+                const headsContainer = document.getElementById('heads-container');
+                headsContainer.innerHTML = ''; // Wyczyść poprzednią zawartość
+
+                if (data.players.now > 0) {
+                    data.players.sample.forEach(player => {
+                        const img = document.createElement('img');
+                        img.src = `https://mc-heads.net/avatar/${player.name}`;
+                        img.alt = player.name;
+                        img.title = player.name;
+
+                        headsContainer.appendChild(img);
+                    });
+                } else {
+                    headsContainer.innerHTML = '<p>Brak graczy online</p>';
+                }
+            } catch (error) {
+                console.error('Błąd podczas pobierania danych:', error);
+                document.getElementById('heads-container').innerHTML = '<p>Nie udało się pobrać informacji o graczach.</p>';
+            }
+        }
+
+        // Aktualizacja widoku po załadowaniu strony
+        window.onload = updatePlayerHeads;
     </script>
 
 </body>
