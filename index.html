@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>OhioSerwer</title>
-    
+
     <!-- Import pliku style.css -->
     <link rel="stylesheet" href="style.css">
 </head>
@@ -44,6 +44,12 @@
             <a href="https://demo.filestash.app/login?type=ftp&hostname=pelican.fi.freemcserver.net&username=OhioSerwer.1398971&password=w9dOgOVieK-Hs2jIJE1uus_PfF0OIorS&port=" class="btn">Pliki Serwerowe</a>
             <a href="#" class="btn">Komendy</a>
         </div>
+
+        <!-- Sekcja z główkami graczy -->
+        <section id="player-heads" class="player-heads">
+            <h2>Aktywni gracze</h2>
+            <div id="heads-container"></div>
+        </section>
     </main>
 
     <footer>
@@ -76,6 +82,41 @@
                 return false; // Zatrzymanie domyślnego działania formularza
             }
         }
+
+        // Pobieranie danych o graczach z serwera Minecraft
+        const serverAddress = 'ohioserwer.enderman.cloud'; // Adres serwera Minecraft
+        const apiURL = `https://api.mcsrvstat.us/2/${serverAddress}`;
+
+        // Funkcja do pobierania danych o graczach
+        async function fetchPlayerHeads() {
+            try {
+                const response = await fetch(apiURL);
+                const data = await response.json();
+
+                if (data.online && data.players && data.players.list) {
+                    const players = data.players.list;
+                    const headsContainer = document.getElementById('heads-container');
+                    headsContainer.innerHTML = '';
+
+                    players.forEach(player => {
+                        const img = document.createElement('img');
+                        img.src = `https://mc-heads.net/avatar/${player}/50`;
+                        img.alt = player;
+                        img.title = player;
+                        img.classList.add('player-head');
+                        headsContainer.appendChild(img);
+                    });
+                } else {
+                    document.getElementById('heads-container').innerHTML = '<p>Brak aktywnych graczy</p>';
+                }
+            } catch (error) {
+                console.error('Błąd podczas pobierania danych o graczach:', error);
+                document.getElementById('heads-container').innerHTML = '<p>Błąd podczas ładowania danych o graczach</p>';
+            }
+        }
+
+        // Wywołanie funkcji po załadowaniu strony
+        fetchPlayerHeads();
     </script>
 
 </body>
