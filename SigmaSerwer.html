@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OhioSerwer</title>
+    <link rel="stylesheet" href="SigmaStyle.css">
+</head>
+<body>
+
+    <header>
+        <h1>Witamy na OhioSerwer</h1>
+        <p>Strona Serwerowa!</p>
+    </header>
+
+    <main>
+        <div class="button-container" id="initial-buttons">
+            <a href="https://freemcserver.net/server/1408297" class="btn">Użytkownik</a>
+            <a href="#" class="admin" onclick="showAdminForm()">Administrator</a>
+        </div>
+
+        <div id="admin-form" class="form-container">
+            <h2>Logowanie Administratora</h2>
+            <form id="login-form" onsubmit="return validateForm()">
+                <label for="username">Nazwa użytkownika:</label>
+                <input type="text" id="username" name="username" placeholder="użytkownik" required><br>
+
+                <label for="password">Hasło:</label>
+                <input type="password" id="password" name="password" placeholder="hasło" required><br>
+
+                <button type="submit">Zaloguj się</button>
+            </form>
+            <p id="error-message" style="color: red; display: none;">Niepoprawna nazwa użytkownika lub hasło</p>
+        </div>
+
+        <div class="button-container" id="new-buttons" style="display: none;">
+            <a href="https://demo.filestash.app/login?type=ftp&hostname=whale.de.freemcserver.net&username=SigmaSerwer.1408297&password=M6wr-wN7ES3ueTvDv57M28HP_lEZC4td&port=" class="btn">Pliki Serwerowe</a>
+            <a href="#" class="btn">Komendy</a>
+        </div>
+
+        <section id="player-heads" class="player-heads">
+            <h2>Aktywni gracze</h2>
+            <div id="heads-container"></div>
+        </section>
+
+        <section id="past-players" class="player-heads">
+            <h2>Gracze, którzy choć raz weszli na serwer</h2>
+            <div id="past-players-container"></div>
+        </section>
+
+        <!-- Kontener dla szczegółów gracza -->
+        <div id="player-details" class="player-details">
+            <div class="player-details-content">
+                <img id="player-avatar" src="" alt="Główka gracza" class="player-avatar">
+                <p id="player-name"></p>
+                <p id="player-premium"></p>
+                <button id="close-details" onclick="closePlayerDetails()">Cofnij</button>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 OhioSerwer. Wszelkie prawa zastrzeżone.</p>
+    </footer>
+
+    <script>
+        function showAdminForm() {
+            const adminForm = document.getElementById('admin-form');
+            adminForm.classList.add('show');
+        }
+
+        function validateForm() {
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+
+            if (username === 'admin' && password === 'toaleta') {
+                document.getElementById('initial-buttons').style.display = 'none';
+                document.getElementById('admin-form').classList.remove('show');
+                document.getElementById('new-buttons').style.display = 'flex';
+                
+                // Zmiana koloru elementów
+                document.body.classList.add('red-background');
+                document.querySelector('header').classList.add('red-background');
+                document.querySelector('footer').classList.add('red-background');
+                document.querySelectorAll('.btn, .admin').forEach(el => el.classList.add('red-color'));
+                return false;
+            } else {
+                document.getElementById('error-message').style.display = 'block';
+                return false;
+            }
+        }
+
+        const serverAddress = 'ohioserwer.enderman.cloud';
+        const apiURL = `https://api.mcsrvstat.us/2/${serverAddress}`;
+
+        const pastPlayers = ['Matrix_2011', 'Supernacikowy', 'Tismak'];
+
+        async function fetchPlayerHeads() {
+            try {
+                const response = await fetch(apiURL);
+                const data = await response.json();
+
+                // Obsługuje aktywnych graczy
+                if (data.online && data.players && data.players.list) {
+                    const players = data.players.list;
+                    const headsContainer = document.getElementById('heads-container');
+                    headsContainer.innerHTML = '';
+
+                    players.forEach(player => {
+                        const playerCard = `
+                            <div class="player-card">
+                                <img src="https://mc-heads.net/avatar/${player}/100" alt="${player}">
+                                <h3>${player}</h3>
+                                <div class="player-status online">Online</div>
+                            </div>`;
+                        headsContainer.innerHTML += playerCard;
+                    });
+                } else {
+                    document.getElementById('heads-container').innerHTML = '<p>Brak aktywnych graczy</p>';
+                }
+
+                // Obsługuje graczy, którzy choć raz weszli na serwer
+                const pastPlayersContainer = document.getElementById('past-players-container');
+                pastPlayersContainer.innerHTML = '';
+
+                pastPlayers.forEach(player => {
+                    const isPremium = ['Matrix_2011', 'Supernacikowy', 'Timsmak'].includes(player);
+                    const playerCard = `
+                        <div class="player-card">
+                            <img src="https://mc-heads.net/avatar/${player}/100" alt="${player}">
+                            <h3>${player}</h3>
+                            ${isPremium ? '<div class="premium-badge">Premium</div>' : ''}
+                            <div class="player-status offline">Offline</div>
+                        </div>`;
+                    pastPlayersContainer.innerHTML += playerCard;
+                });
+
+            } catch (error) {
+                console.error('Błąd podczas pobierania danych o graczach:', error);
+                document.getElementById('heads-container').innerHTML = '<p>Błąd podczas ładowania danych o graczach</p>';
+            }
+        }
+
+        // Funkcja do wyświetlania szczegółów gracza
+        function showPlayerDetails(player) {
+            document.getElementById('player-avatar').src = `https://mc-heads.net/avatar/${player}/100`;
+            document.getElementById('player-name').textContent = player;
+
+            const premiumPlayers = ['Matrix_2011', 'Supernacikowy', 'Tismak'];
+            const isPremium = premiumPlayers.includes(player);
+            const premiumText = isPremium ? 'Tak' : 'Nie';
+            document.getElementById('player-premium').textContent = `Premium: ${premiumText}`;
+            document.getElementById('player-premium').className = isPremium ? 'premium-yes' : 'premium-no';
+
+            document.getElementById('player-details').style.display = 'flex';
+        }
+
+        // Funkcja do ukrywania szczegółów gracza
+        function closePlayerDetails() {
+            document.getElementById('player-details').style.display = 'none';
+        }
+
+        window.onload = fetchPlayerHeads;
+    </script>
+
+</body>
+</html>
