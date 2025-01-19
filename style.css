@@ -6,6 +6,7 @@ body {
     justify-content: center;
     align-items: center;
     height: 100vh;
+    position: relative; /* Umożliwia użycie absolutnego pozycjonowania */
 }
 
 .header-box {
@@ -13,6 +14,9 @@ body {
     height: 200px; /* Wysokość boxa */
     background-color: #d9d9d9; /* Szary kolor boxa */
     border-radius: 10px;
+    position: absolute; /* Pozycjonowanie bezwzględne */
+    top: 0;
+    left: 0;
 }
 
 .header-box2 {
@@ -20,6 +24,7 @@ body {
     height: 200px; /* Wysokość boxa */
     background-color: #d9d9d9; /* Szary kolor boxa */
     border-radius: 10px;
-    margin-left: 25px; /* Przesunięcie w prawo */
-    margin-top: 25px;  /* Przesunięcie w dół */
+    position: absolute; /* Pozycjonowanie bezwzględne */
+    top: 25px; /* Przesunięcie w dół */
+    left: 25px; /* Przesunięcie w prawo */
 }
