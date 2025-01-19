@@ -3,28 +3,102 @@ body {
     margin: 0;
     background-color: #ffffff;
     display: flex;
+    flex-direction: column; /* Ustawienie kontenerów w pionie */
     justify-content: center;
     align-items: center;
     height: 100vh;
-    position: relative; /* Umożliwia użycie absolutnego pozycjonowania */
+}
+
+.container {
+    position: relative;
+    width: 832.5px; /* Zmniejszona szerokość kontenera (1665 / 2) */
+    height: 199.5px; /* Zmniejszona wysokość kontenera (399 / 2) */
 }
 
 .header-box {
-    width: 833px; /* Szerokość boxa */
-    height: 200px; /* Wysokość boxa */
+    width: 100%; /* Box wypełnia całą szerokość kontenera */
+    height: 100%; /* Box wypełnia całą wysokość kontenera */
     background-color: #d9d9d9; /* Szary kolor boxa */
-    border-radius: 10px;
+    border-radius: 28px; /* Zaokrąglenie rogów o połowę mniejsze (56 / 2) */
     position: absolute; /* Pozycjonowanie bezwzględne */
     top: 0;
     left: 0;
+    z-index: 1; /* Ustawienie na wierzchu */
 }
 
 .header-box2 {
-    width: 833px; /* Szerokość boxa */
-    height: 200px; /* Wysokość boxa */
-    background-color: #d9d9d9; /* Szary kolor boxa */
-    border-radius: 10px;
+    width: 100%; /* Box wypełnia całą szerokość kontenera */
+    height: 100%; /* Box wypełnia całą wysokość kontenera */
+    background-color: #000000; /* Czarny kolor boxa */
+    border-radius: 28px; /* Zaokrąglenie rogów o połowę mniejsze (56 / 2) */
     position: absolute; /* Pozycjonowanie bezwzględne */
-    top: 25px; /* Przesunięcie w dół */
-    left: 25px; /* Przesunięcie w prawo */
+    top: 25px; /* Przesunięcie w dół o połowę mniejsze (50 / 2) */
+    left: 25px; /* Przesunięcie w prawo o połowę mniejsze (50 / 2) */
+    z-index: 0; /* Ustawienie pod pierwszym boxem */
 }
+
+/* Drugi kontener z przesunięciem */
+.container2 {
+    position: relative;
+    width: 240px; /* Zmniejszona szerokość kontenera (1665 / 2) */
+    height: 200px; /* Zmniejszona wysokość kontenera (399 / 2) */
+    margin-top: 37px; /* Zmniejszone przesunięcie w dół (74 / 2) */
+    margin-left: -582.5px; /* Zmniejszone przesunięcie w lewo (-1165 / 2) */
+}
+.text-box {
+    position: absolute; /* Pozycjonowanie absolutne względem kontenera */
+    right: -590px; /* Przesunięcie w prawo od dolnego boxa */
+    top: 20%; /* Wyrównanie tekstu w pionie */
+    transform: translateY(-50%); /* Wycentrowanie tekstu w osi Y */
+    font-size: 55px; /* Rozmiar czcionki */
+    font-family: Arial, sans-serif; /* Czcionka tekstu */
+    color: #0; /* Kolor tekstu */
+}
+.text-box2 {
+    position: absolute; /* Pozycjonowanie absolutne względem kontenera */
+    right: -650px; /* Przesunięcie w prawo od dolnego boxa */
+    top: 45%; /* Wyrównanie tekstu w pionie */
+    transform: translateY(-50%); /* Wycentrowanie tekstu w osi Y */
+    font-size: 40px; /* Rozmiar czcionki */
+    font-family: Arial, sans-serif; /* Czcionka tekstu */
+    color: #0; /* Kolor tekstu */
+}
+.text-box3 {
+    position: absolute; /* Pozycjonowanie absolutne względem kontenera */
+    right: -610px; /* Przesunięcie w prawo od dolnego boxa */
+    top: 66%; /* Wyrównanie tekstu w pionie */
+    transform: translateY(-50%); /* Wycentrowanie tekstu w osi Y */
+    font-size: 40px; /* Rozmiar czcionki */
+    font-family: Arial, sans-serif; /* Czcionka tekstu */
+    color: #0; /* Kolor tekstu */
+}
+.image-top {
+    position: absolute; /* Pozycjonowanie absolutne względem kontenera */
+    top: 60%; /* Wyśrodkowanie w pionie w górnym boxie */
+    left: 50%; /* Wyśrodkowanie w poziomie */
+    transform: translate(-50%, -50%); /* Wyrównanie środka obrazu do środka boxa */
+    width: 80%; /* Szerokość obrazu (dostosuj według potrzeb) */
+    height: auto; /* Zachowanie proporcji obrazu */
+    z-index: 2; /* Wyższy niż szary box */
+}
+
+.image-bottom {
+    position: absolute; /* Pozycjonowanie absolutne względem kontenera */
+    top: 50%; /* Wyśrodkowanie w pionie w dolnym boxie */
+    left: 50%; /* Wyśrodkowanie w poziomie */
+    transform: translate(-50%, -50%); /* Wyrównanie środka obrazu do środka boxa */
+    width: 80%; /* Szerokość obrazu (dostosuj według potrzeb) */
+    height: auto; /* Zachowanie proporcji obrazu */
+    z-index: 2; /* Wyższy niż czarny box */
+}
+body {
+    margin: 0;
+    background: url('background.png') no-repeat center center fixed; /* Obraz tła */
+    background-size: cover; /* Dopasowanie obrazu do rozmiaru okna */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
