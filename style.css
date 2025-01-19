@@ -1,245 +1,38 @@
-/* Resetowanie marginesów i wypełnień */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-/* Styl dla ciała strony */
+/* Plik: style.css */
 body {
-    font-family: 'Arial', sans-serif;
-    background-color: #f4f4f4;
-    line-height: 1.6;
-    padding: 20px;
-    text-align: center;
-    transition: background-color 1s ease;
-    max-width: 100%;
-    overflow-x: hidden;
-}
-
-/* Nagłówek */
-header {
-    background-color: #49aaff;
-    color: white;
-    padding: 20px;
-    margin-bottom: 30px;
-    transition: background-color 1s ease;
-    max-width: 100%;
-}
-
-header h1 {
-    font-size: 2.5em;
-    margin-bottom: 10px;
-}
-
-header p {
-    font-size: 1.2em;
     margin: 0;
-}
-
-/* Kontener przycisków */
-.button-container {
+    font-family: Arial, sans-serif;
+    background-color: #ffd966; /* Żółte tło */
     display: flex;
     justify-content: center;
-    flex-wrap: wrap; /* Zwijanie przycisków na mniejsze ekrany */
-    gap: 20px;
-    margin: 40px 0;
-    max-width: 100%;
-}
-
-/* Styl dla przycisków */
-.btn, .admin {
-    background-color: #49aaff;
-    color: white;
-    font-size: 24px;
-    padding: 15px 30px;
-    text-decoration: none;
-    transition: background-color 1s ease, color 1s ease;
-    border: 2px solid #49aaff;
-    text-transform: uppercase;
-    border-radius: 5px;
-}
-
-.btn:hover, .admin:hover {
-    background-color: white;
-    color: #49aaff;
-    border: 2px solid #49aaff;
-}
-
-/* Styl dla formularza admina */
-.form-container {
-    margin-top: 20px;
-    background-color: white;
-    padding: 20px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    width: 300px;
-    margin-left: auto;
-    margin-right: auto;
-    text-align: left;
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    opacity: 0;
-    visibility: hidden;
-    transition: opacity 0.5s ease, visibility 0.5s ease;
-}
-
-.form-container.show {
-    opacity: 1;
-    visibility: visible;
-}
-
-.form-container h2 {
-    text-align: center;
-    margin-bottom: 20px;
-}
-
-.form-container label {
-    display: block;
-    margin-bottom: 10px;
-    font-size: 1.1em;
-}
-
-.form-container input[type="text"],
-.form-container input[type="password"] {
-    width: 100%;
-    padding: 10px;
-    margin-bottom: 20px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-}
-
-.form-container button {
-    width: 100%;
-    padding: 10px;
-    background-color: #49aaff;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    font-size: 1.1em;
-    cursor: pointer;
-    transition: background-color 0.4s;
-}
-
-.form-container button:hover {
-    background-color: #357cb0;
-}
-
-/* Styl dla sekcji z główkami graczy */
-.player-heads {
-    margin: 20px 0;
-    padding: 20px;
-    background-color: #fff;
-    border-radius: 5px;
-    border: 1px solid #ddd;
-}
-
-.player-heads h2 {
-    margin-bottom: 10px;
-}
-
-/* Kontener na główki graczy */
-#heads-container {
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap; /* Zapewnia zwijanie elementów */
-    gap: 15px;
-    padding: 0 10px; /* Dodatkowy margines, aby uniknąć wychodzenia poza ekran */
-}
-
-/* Styl dla główek graczy */
-.player-head {
-    border-radius: 50%;
-    border: 2px solid #49aaff;
-    transition: transform 0.3s ease;
-    cursor: pointer;
-    width: 50px;
-    height: 50px;
-}
-
-.player-head:hover {
-    transform: scale(1.2);
-}
-
-/* Styl dla szczegółów gracza */
-.player-details {
-    display: none;
-    flex-direction: column;
     align-items: center;
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background-color: white;
-    border: 1px solid #ddd;
-    border-radius: 5px;
+    height: 100vh;
+}
+
+.container {
+    width: 90%;
+    max-width: 800px;
+    text-align: center;
+    background: white;
+    border-radius: 10px;
     padding: 20px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    width: 90%; /* Zmniejszenie szerokości na urządzeniach mobilnych */
-    max-width: 400px;
 }
 
-/* Styl dla gracza z kontem premium */
-.player-details .premium-yes {
-    color: green;
+.header {
+    background-color: #f2f2f2; /* Szare tło nagłówka */
+    padding: 20px;
+    border-radius: 10px;
+    margin-bottom: 20px;
 }
 
-/* Styl dla gracza bez konta premium */
-.player-details .premium-no {
-    color: red;
+.content .description h1 {
+    font-size: 24px;
+    color: #ff9800; /* Pomarańczowy kolor tekstu */
+    margin: 10px 0;
 }
 
-/* Styl dla stopki */
-footer {
-    background-color: #333;
-    color: white;
-    padding: 15px;
-    margin-top: 40px;
-    text-align: center;
-    transition: background-color 1s ease;
-}
-
-/* Styl dla zmiany koloru na biały z czerwonymi akcentami */
-.red-background {
-    background-color: #fff; /* Tło białe */
-    color: #f00; /* Kolor tekstu czerwony */
-    transition: background-color 3s ease, color 3s ease;
-}
-
-.red-color {
-    background-color: #f00; /* Tło czerwone */
-    color: #fff; /* Kolor tekstu biały */
-    border-color: #f00; /* Kolor obramowania czerwony */
-    transition: background-color 3s ease, color 3s ease;
-}
-
-/* Media queries for responsive design */
-@media screen and (max-width: 768px) {
-    header h1 {
-        font-size: 2em; /* Zmniejszenie czcionki nagłówka */
-    }
-
-    header p {
-        font-size: 1em;
-    }
-
-    .btn, .admin {
-        font-size: 20px;
-        padding: 10px 20px;
-    }
-
-    #heads-container {
-        gap: 10px;
-    }
-
-    .player-head {
-        width: 40px;
-        height: 40px;
-    }
-
-    .player-details {
-        width: 80%; /* Jeszcze mniejsza szerokość na małych ekranach */
-    }
+.content .description p {
+    font-size: 18px;
+    margin: 5px 0;
 }
