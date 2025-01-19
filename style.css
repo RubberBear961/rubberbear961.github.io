@@ -9,8 +9,17 @@ body {
 }
 
 .header-box {
-    width: 1665px; /* Szerokość boxa */
-    height: 399px; /* Wysokość boxa */
+    width: 833px; /* Szerokość boxa */
+    height: 200px; /* Wysokość boxa */
     background-color: #d9d9d9; /* Szary kolor boxa */
     border-radius: 10px;
+}
+
+.header-box2 {
+    width: 833px; /* Szerokość boxa */
+    height: 200px; /* Wysokość boxa */
+    background-color: #d9d9d9; /* Szary kolor boxa */
+    border-radius: 10px;
+    margin-left: 25px; /* Przesunięcie w prawo */
+    margin-top: 25px;  /* Przesunięcie w dół */
 }
